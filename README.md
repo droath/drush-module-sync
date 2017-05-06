@@ -17,7 +17,7 @@ Sync Drupal modules based on a defined scope. Scopes are arbitrary but in most c
 First, you'll need to download the `drush-module-sync` library using composer:
 
 ```bash
-composer require droath/drush-module-sync:^0.0.1
+composer require droath/drush-module-sync
 ```
 
 Next, you need to create a `module-sync` configuration file. This can be done by executing the following command:
