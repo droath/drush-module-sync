@@ -66,9 +66,14 @@ function drush_module_sync_execute() {
       '--scope parameter requires a string argument.'
     );
   }
-  $instance = create_module_sync_instance();
+  $config_path = drush_get_option('config-path');
 
-  drush_module_sync_print_info(dt('Module sync scope has been set to @scope.', ['@scope' => $scope]));
+  $instance = create_module_sync_instance($config_path);
+
+  drush_module_sync_print_info(dt('Scope set to: @scope.', ['@scope' => $scope]));
+  drush_module_sync_print_info(dt('Config loaded from: @filename', [
+    '@filename' => $instance->getConfigFilename()
+  ]));
 
   try {
     $instance->setScope($scope);

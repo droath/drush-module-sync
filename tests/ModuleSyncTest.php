@@ -18,9 +18,7 @@ class ModuleSyncTest extends TestCase {
   protected $moduleInstaller;
 
   public function setUp() {
-    $this->syncConfig = new SyncConfig(
-      __DIR__ . '/fixtures/module-installation.yml'
-    );
+    $this->syncConfig = new SyncConfig(__DIR__ . '/fixtures');
 
     $this->moduleHandler = $this
       ->getMockBuilder('\Drupal\Core\Extension\ModuleHandlerInterface')

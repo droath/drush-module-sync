@@ -16,6 +16,13 @@ class SyncConfig {
    */
   protected $config;
 
+  /**
+   * Configuration path.
+   *
+   * @var string
+   */
+  protected $configPath;
+
   const DEFAULT_VERSION = 1;
   const DEFAULT_FILENAME = 'module-sync.yml';
 
@@ -25,11 +32,13 @@ class SyncConfig {
    * Constructor for module sync configuration.
    */
   public function __construct($path = NULL) {
-    if (!isset($path)) {
-      $path = $this->configPathDiscovery();
+    $this->configPath = $path;
+
+    if (!isset($this->configPath)) {
+      $this->configPath = $this->discoverConfigPath();
     }
 
-    $this->config = $this->parseConfig($path);
+    $this->config = $this->parseConfig();
   }
 
   /**
@@ -101,6 +110,16 @@ class SyncConfig {
   }
 
   /**
+   * Get configuration filename.
+   *
+   * @return string
+   *   The full path to the configuration file.
+   */
+  public function getConfigFilename() {
+    return $this->configPath . DIRECTORY_SEPARATOR . self::DEFAULT_FILENAME;
+  }
+
+  /**
    * Get modules keyed by their scope.
    *
    * @return array
@@ -126,38 +145,36 @@ class SyncConfig {
   }
 
   /**
-   * Configuration path discovery.
+   * Discover the configuration path.
    */
-  protected function configPathDiscovery() {
-    $filepath = $this->lookupFilePath();
-    $filename = $filepath . DIRECTORY_SEPARATOR . self::DEFAULT_FILENAME;
+  protected function discoverConfigPath() {
+    $config_path = $this->lookupFilePath();
 
-    if (!file_exists($filename)) {
-      throw new \InvalidArgumentException(
-        'Undefined or non-existent configuration path.'
+    if (!file_exists($config_path)) {
+      throw new \Exception(
+        "Configuration path doesn't exist."
       );
     }
 
-    return $filename;
+    return $config_path;
   }
 
   /**
    * Parse configuration.
    *
-   * @param string $config_path
-   *   The valid path to the YAML configuration.
-   *
    * @return array
    *   An array representation of the YAML configuration.
    */
-  protected function parseConfig($config_path) {
-    if (!file_exists($config_path) || !is_file($config_path)) {
+  protected function parseConfig() {
+    $filename = $this->getConfigFilename();
+
+    if (!file_exists($filename) || !is_file($filename)) {
       throw new \InvalidArgumentException(
         'Invalid path to the module-sync YAML configuration.'
       );
     }
 
-    return Yaml::parse(file_get_contents($config_path));
+    return Yaml::parse(file_get_contents($filename));
   }
 
 }

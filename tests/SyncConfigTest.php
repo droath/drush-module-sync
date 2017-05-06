@@ -13,9 +13,7 @@ class SyncConfigTest extends TestCase {
   protected $syncConfig;
 
   public function setUp() {
-    $this->syncConfig = new SyncConfig(
-      __DIR__ . '/fixtures/module-installation.yml'
-    );
+    $this->syncConfig = new SyncConfig(__DIR__ . '/fixtures');
   }
 
   public function testGetVersion() {
@@ -38,6 +36,10 @@ class SyncConfigTest extends TestCase {
   public function testGetModulesByScope() {
     $modules = $this->syncConfig->getModulesByScope('stage');
     $this->assertContains('file_stage_proxy', $modules);
+  }
+
+  public function testGetConfigFilename() {
+    $this->assertEquals(__DIR__ . '/fixtures/module-sync.yml', $this->syncConfig->getConfigFilename());
   }
 
   /**
