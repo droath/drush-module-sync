@@ -1,0 +1,28 @@
+{
+    "name": "droath/drush-module-sync",
+    "description": "Sync Drupal modules based on a defined scope.",
+    "type": "drupal-drush",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Travis Tomka",
+            "email": "underoathosx@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "drush/drush": "^8.1",
+        "symfony/yaml": "^2.8"
+    },
+    "require-dev": {
+        "drupal/coder": "^8.2",
+        "drupal/drupal": "^8.3",
+        "phpunit/phpunit": "^5.5",
+        "squizlabs/php_codesniffer": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Droath\\ModuleSync\\": "./src"
+        }
+    }
+}
