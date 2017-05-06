@@ -72,7 +72,7 @@ function drush_module_sync_execute() {
 
   drush_module_sync_print_info(dt('Scope set to: @scope.', ['@scope' => $scope]));
   drush_module_sync_print_info(dt('Config loaded from: @filename', [
-    '@filename' => $instance->getConfigFilename()
+    '@filename' => $instance->getConfig()->getConfigFilename()
   ]));
 
   try {

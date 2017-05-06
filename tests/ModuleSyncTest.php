@@ -118,4 +118,8 @@ class ModuleSyncTest extends TestCase {
      $this->assertInternalType('array', $status);
   }
 
+  public function testGetConfig() {
+    $this->assertInstanceOf('\Droath\ModuleSync\SyncConfig', $this->moduleSync->getConfig());
+  }
+
 }

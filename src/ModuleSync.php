@@ -135,6 +135,16 @@ class ModuleSync {
   }
 
   /**
+   * Get the configuration object.
+   *
+   * @return \Droath\ModuleSync\SyncConfig
+   *   The sync configuration object.
+   */
+  public function getConfig() {
+    return $this->config;
+  }
+
+  /**
    * Get modules by scope.
    *
    * @return array
